@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>        
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>        
+<script src="router.js"></script>
+
+<body ng-app="userApp">
+    <ul class="nav nav-pills">
+        <li role="presentation">
+            <a href="#home">Home</a>
+        </li>
+        <li role="presentation" ng-hide="currentUser">
+            <a href="#register">Register</a>
+        </li>
+        <li role="presentation" ng-hide="currentUser">
+            <a href="#login">Login</a>
+        </li>
+        <li role="presentation" ng-show="currentUser">
+            <a href="#logout">Logout</a>
+        </li>
+    </ul>
+    <div ng-view></div>
+</body>
