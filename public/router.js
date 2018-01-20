@@ -63,7 +63,7 @@ angular.module("userApp", ["ngRoute"])
 .controller("profileController", function($scope, $http, $routeParams, $location, cookieService){
     if (cookieService.getCookie("username")) {
         if (!$routeParams.userId) {
-            console.log($location.url("/profile/" + cookieService.getCookie("userid")))
+            $location.url("/profile/" + cookieService.getCookie("userid"))
         }
 
         $http.get("/profile/"+cookieService.getCookie("userid"))

@@ -25,6 +25,7 @@ var userSchema = mongoose.Schema({
     },
 });
 var userModel = mongoose.model('user', userSchema);
+// TODO: mongo shell scripts to check #(existent users)...
 
 var app = express();
 app.use(bodyParser.json());
