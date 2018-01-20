@@ -2,7 +2,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-// connect to db bfc on port 27017 
 mongoose.connect('mongodb://localhost:27017/bfc', {
     useMongoClient: true,
 });
@@ -25,7 +24,6 @@ var userSchema = mongoose.Schema({
         required: true
     },
 });
-// "users" collection
 var userModel = mongoose.model('user', userSchema);
 
 var app = express();
@@ -86,7 +84,6 @@ app.post("/login", function callback(req, res){
     })
 })
 app.get("/profile/:userId", function (req, res){
-    console.log(req.body)
     var userId = req.params.userId
     userModel.findOne({_id: userId}, function (error, user){
         if (error) {

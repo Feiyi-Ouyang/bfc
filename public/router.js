@@ -16,6 +16,10 @@ angular.module("userApp", ["ngRoute"])
         templateUrl : "logout.html",
         controller: "logoutController"
     })
+    .when("/profile", {
+        templateUrl : "profile.html",
+        controller: "profileController"
+    })
     .when("/profile/:userId", {
         templateUrl : "profile.html",
         controller: "profileController"
@@ -32,12 +36,13 @@ angular.module("userApp", ["ngRoute"])
         })
     };
 })
-.controller("loginController", function($scope, $http, $location, $rootScope){
+.controller("loginController", function($scope, $http, $location){
     $scope.login = function login(){
         $http.post("/login", $scope.user)
         .then(function successCallback(res){
+            document.cookie = "username="+res.data.user.username;
+            document.cookie = "userid="+res.data.user._id;
             console.log(res.data.message);
-            $rootScope.currentUser = true;
             $location.url("/profile/" + res.data.user._id);
         }, function errorCallback(res){
             window.alert(res.data.message)
@@ -45,20 +50,36 @@ angular.module("userApp", ["ngRoute"])
         })
     }
 })
-.controller("logoutController", function($timeout, $location, $rootScope){
+.controller("logoutController", function($timeout, $location){
     $timeout(function() {
-        $rootScope.currentUser = false;
+        document.cookie = "username=";
+        document.cookie = "userid=";
         $location.path('/home');
     }, 3000);
 
 })
-.controller("profileController", function($scope, $http, $rootScope, $routeParams){
-    if ($rootScope.currentUser) {
-        $http.get("/profile/"+$routeParams.userId)
+.controller("profileController", function($scope, $http, $routeParams){
+    if (getCookie("username")) {
+        $http.get("/profile/"+getCookie("userid"))
         .then(function successCallback(res){
             $scope.user = res.data.user 
         }, function errorCallback(res){
             console.log(res.data.message)
         })
+    }
+   function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
     }
 });
