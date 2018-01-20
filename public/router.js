@@ -1,9 +1,14 @@
 angular.module("userApp", ["ngRoute"])
 .config(function($routeProvider) {
     $routeProvider
-    .when("/home", {
-        templateUrl : "home.html",
-        controller : "mainController"
+    .when("/", {
+        templateUrl : "before_login_home.html",
+    })
+    .when("/before_login_home", {
+        templateUrl : "before_login_home.html",
+    })
+    .when("/after_login_home", {
+        templateUrl : "after_login_home.html",
     })
     .when("/register", {
         templateUrl : "register.html",
@@ -56,7 +61,7 @@ angular.module("userApp", ["ngRoute"])
     $timeout(function() {
         document.cookie = "username=";
         document.cookie = "userid=";
-        $location.url('/home');
+        $location.url('/');
     }, 3000);
 
 })
