@@ -49,7 +49,6 @@ angular.module("userApp", ["ngRoute"])
             $location.url("/profile/" + res.data.user._id);
         }, function errorCallback(res){
             window.alert(res.data.message)
-            location.reload();
         })
     }
 })
@@ -57,12 +56,16 @@ angular.module("userApp", ["ngRoute"])
     $timeout(function() {
         document.cookie = "username=";
         document.cookie = "userid=";
-        $location.path('/home');
+        $location.url('/home');
     }, 3000);
 
 })
-.controller("profileController", function($scope, $http, cookieService){
+.controller("profileController", function($scope, $http, $routeParams, $location, cookieService){
     if (cookieService.getCookie("username")) {
+        if (!$routeParams.userId) {
+            console.log($location.url("/profile/" + cookieService.getCookie("userid")))
+        }
+
         $http.get("/profile/"+cookieService.getCookie("userid"))
         .then(function successCallback(res){
             $scope.user = res.data.user 
