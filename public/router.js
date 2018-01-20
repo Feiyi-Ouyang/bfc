@@ -3,6 +3,7 @@ angular.module("userApp", ["ngRoute"])
     $routeProvider
     .when("/home", {
         templateUrl : "home.html",
+        controller : "mainController"
     })
     .when("/register", {
         templateUrl : "register.html",
@@ -24,6 +25,8 @@ angular.module("userApp", ["ngRoute"])
         templateUrl : "profile.html",
         controller: "profileController"
     });
+})
+.controller("mainController", function($scope, cookieService){
 })
 .controller("registerController", function($scope, $http, $location){
     $scope.register = function register(){
@@ -58,16 +61,22 @@ angular.module("userApp", ["ngRoute"])
     }, 3000);
 
 })
-.controller("profileController", function($scope, $http, $routeParams){
-    if (getCookie("username")) {
-        $http.get("/profile/"+getCookie("userid"))
+.controller("profileController", function($scope, $http, cookieService){
+    if (cookieService.getCookie("username")) {
+        $http.get("/profile/"+cookieService.getCookie("userid"))
         .then(function successCallback(res){
             $scope.user = res.data.user 
         }, function errorCallback(res){
             console.log(res.data.message)
         })
     }
-   function getCookie(cname) {
+})
+.factory('cookieService', function () {
+    var service = {
+        getCookie : getCookie
+    }
+
+    function getCookie(cname) {
         var name = cname + "=";
         var decodedCookie = decodeURIComponent(document.cookie);
         var ca = decodedCookie.split(';');
@@ -82,4 +91,6 @@ angular.module("userApp", ["ngRoute"])
         }
         return "";
     }
-});
+ 
+    return service;
+  })
