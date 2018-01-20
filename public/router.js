@@ -39,12 +39,13 @@ angular.module("userApp", ["ngRoute"])
         })
     };
 })
-.controller("loginController", function($scope, $http, $location){
+.controller("loginController", function($rootScope, $scope, $http, $location){
     $scope.login = function login(){
         $http.post("/login", $scope.user)
         .then(function successCallback(res){
             document.cookie = "username="+res.data.user.username;
             document.cookie = "userid="+res.data.user._id;
+            $rootScope.currentUser = true
             console.log(res.data.message);
             $location.url("/profile/" + res.data.user._id);
         }, function errorCallback(res){
@@ -52,19 +53,21 @@ angular.module("userApp", ["ngRoute"])
         })
     }
 })
-.controller("logoutController", function($timeout, $location){
+.controller("logoutController", function($rootScope, $timeout, $location){
     $timeout(function() {
         document.cookie = "username=";
         document.cookie = "userid=";
+        $rootScope.currentUser = false
         $location.url('/home');
     }, 3000);
 
 })
-.controller("profileController", function($scope, $http, $routeParams, $location, cookieService){
+.controller("profileController", function($rootScope, $scope, $http, $routeParams, $location, cookieService){
     if (cookieService.getCookie("username")) {
         if (!$routeParams.userId) {
             $location.url("/profile/" + cookieService.getCookie("userid"))
         }
+        $rootScope.currentUser = true
 
         $http.get("/profile/"+cookieService.getCookie("userid"))
         .then(function successCallback(res){

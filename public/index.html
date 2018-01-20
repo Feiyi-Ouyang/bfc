@@ -5,19 +5,19 @@
 
 <body ng-app="userApp">
     <ul class="nav nav-pills">
-        <li role="presentation">
+        <li role="presentation" ng-hide="currentUser">
             <a href="#home">Home</a>
         </li>
-        <li role="presentation">
+        <li role="presentation" ng-hide="currentUser">
             <a href="#register">Register</a>
         </li>
-        <li role="presentation">
+        <li role="presentation" ng-hide="currentUser">
             <a href="#login">Login</a>
         </li>
-        <li role="presentation">
+        <li role="presentation" ng-show="currentUser">
             <a href="#profile">Profile</a>
         </li>
-        <li role="presentation">
+        <li role="presentation" ng-show="currentUser">
             <a href="#logout">Logout</a>
         </li>
     </ul>
