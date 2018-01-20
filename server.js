@@ -2,7 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/users', {
+// connect to db bfc on port 27017 
+mongoose.connect('mongodb://localhost:27017/bfc', {
     useMongoClient: true,
 });
 mongoose.Promise = global.Promise;
@@ -24,7 +25,8 @@ var userSchema = mongoose.Schema({
         required: true
     },
 });
-var userModel = mongoose.model('User', userSchema);
+// "users" collection
+var userModel = mongoose.model('user', userSchema);
 
 var app = express();
 app.use(bodyParser.json());
