@@ -24,7 +24,11 @@ angular.module("userApp", ["ngRoute"])
     .when("/profile/:userId", {
         templateUrl : "profile.html",
         controller: "profileController"
-    });
+    })
+    .when("/shopping-cart", {
+        templateUrl : "shopping-cart.html",
+        controller: "profileController"
+    })
 })
 .controller("mainController", function($scope, cookieService){
 })
