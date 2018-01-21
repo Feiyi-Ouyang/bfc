@@ -1,8 +1,26 @@
+<div id="app">
+    <script>
+        var App = React.createClass({
+            displayName: 'App',
+            render: function() {
+                // The second parameter is an object of attributes for the element (if any)
+                return React.createElement('div', { }, 'Something something Dark Side');
+            }
+        });
+    
+        ReactDOM.render(
+            React.createElement(App),
+            document.getElementById('app')
+        );
+    </script>
+</div>
+
 <div class="row">
     <div class="col-md-1">
-        <a ng-href={{"#/product/"+product.id}}>
-            <img ng-src={{product.src}} class="img-responsive" alt="Product">
+        <a href="#/product/{{product._id}}">
+            <console class="log"></console>
+            <img src= "img/{{product.name}}.png" class="img-responsive" alt="Product">
         </a>
-        {{product.description}}
+        <p class="text-center">{{product.name}}:{{product.price}}</p>
     </div>
 </div>

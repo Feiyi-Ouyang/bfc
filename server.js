@@ -122,6 +122,15 @@ app.post("/login", function callback(req, res){
     })
 })
 
+app.get("/home", function (req, res){
+    productModel.find({}, function (error, products){
+        if (error) {
+            return res.status(400).send({message: error.message})
+        }
+        return res.send({products: products})
+    })
+})
+
 app.get("/profile/:userId", function (req, res){
     var userId = req.params.userId
     userModel.findOne({_id: userId}, function (error, user){

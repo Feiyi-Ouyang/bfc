@@ -44,15 +44,6 @@ app.controller("productController", function($scope, $routeParams){
     $scope.id = $routeParams.productId
 })
 
-app.controller("homeController", function($scope){
-    // TODO: should be loaded from db 
-    $scope.product = {
-        src: "product.png",
-        description: "home",
-        id: 1,
-    }
-})
-
 app.controller("shopping-cartController", function($scope){
 })
 
@@ -121,6 +112,22 @@ app.controller("profileController", function($rootScope, $scope, $http, $routePa
             console.log(res.data.message)
         })
     }
+})
+
+app.controller("homeController", function($scope, $http){
+    $http.get("/home")
+    .then(function successCallback(res){
+        // $scope.product = {
+        //     src: "product.png",
+        //     description: "home",
+        //     id: 1,
+        // }
+        $scope.product = res.data.products[0]
+    }, function errorCallback(res){
+        console.log(res.data.message)
+    })
+
+
 })
 
 app.factory('cookieService', function () {
