@@ -68,6 +68,31 @@ app.post("/register", function callback(req, res){
         }
     })
 });
+
+app.post("/addProduct", function callback(req, res){
+    var productInfo = req.body;
+    var newProduct = new productModel(productInfo);
+    var error = newProduct.validateSync();
+    if (error) {
+        return res.status(400).send({message: error.message})
+    }
+    productModel.find({name: productInfo.name}, function (error, docs){
+        if (error) {
+            return res.status(400).send({message: error.message})
+        }
+        if (docs.length) {
+            return res.status(400).send({message: "Username already exists"});
+        } else {
+            newProduct.save(function(error){
+                if (error) {
+                    return res.status(400).send({message: error.message})
+                } else {
+                    return res.send({message: "New product wrote to db"});
+                }
+            })
+        }
+    })
+});
 app.post("/login", function callback(req, res){
     var userInfo = req.body;
     userModel.findOne({email: userInfo.email}, function (error, doc){

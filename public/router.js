@@ -34,6 +34,10 @@ app.config(function($routeProvider) {
         templateUrl : "product.html",
         controller: "productController"
     })
+    .when("/addProduct", {
+        templateUrl : "addProduct.html",
+        controller: "addProductController"
+    })
 })
 
 app.controller("productController", function($scope, $routeParams){
@@ -62,6 +66,18 @@ app.controller("registerController", function($scope, $http, $location){
             console.log(res.data.message)
         })
     };
+})
+
+app.controller("addProductController", function($scope, $http){
+    $scope.register = function register(){
+        $http.post("/addProduct", $scope.product)
+        .then(function successCallback(res){
+            console.log(res.data.message)
+        }, function errorCallback(res){
+            console.log(res.data.message)
+        })
+    };
+
 })
 
 app.controller("loginController", function($rootScope, $scope, $http, $location){
