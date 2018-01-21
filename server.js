@@ -36,7 +36,7 @@ var productSchema = mongoose.Schema({
         required: true
     },
 });
-var productModel = mongoose.model('product', userSchema);
+var productModel = mongoose.model('product', productSchema);
 
 var app = express();
 app.use(bodyParser.json());
@@ -104,6 +104,7 @@ app.post("/addProduct", function callback(req, res){
         }
     })
 });
+
 app.post("/login", function callback(req, res){
     var userInfo = req.body;
     userModel.findOne({email: userInfo.email}, function (error, doc){
@@ -120,6 +121,7 @@ app.post("/login", function callback(req, res){
         }
     })
 })
+
 app.get("/profile/:userId", function (req, res){
     var userId = req.params.userId
     userModel.findOne({_id: userId}, function (error, user){
@@ -129,4 +131,5 @@ app.get("/profile/:userId", function (req, res){
         return res.send({user: user})
     })
 })
+
 app.listen(3000);
