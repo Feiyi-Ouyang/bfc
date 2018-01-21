@@ -25,7 +25,18 @@ var userSchema = mongoose.Schema({
     },
 });
 var userModel = mongoose.model('user', userSchema);
-// TODO: mongo shell scripts to check #(existent users)...
+
+var productSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+});
+var productModel = mongoose.model('product', userSchema);
 
 var app = express();
 app.use(bodyParser.json());
