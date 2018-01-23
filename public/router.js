@@ -122,7 +122,7 @@ app.controller("homeController", function($scope, $http){
         //     description: "home",
         //     id: 1,
         // }
-        $scope.product = res.data.products[0]
+        $scope.product = res.data.products
     }, function errorCallback(res){
         console.log(res.data.message)
     })
