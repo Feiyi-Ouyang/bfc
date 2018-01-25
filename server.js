@@ -38,9 +38,26 @@ var productSchema = mongoose.Schema({
 });
 var productModel = mongoose.model('product', productSchema);
 
+var cartSchema = mongoose.Schema({
+    userid: {
+        type: String,
+        required: true
+    },
+    products: [{
+       productid: {
+        type: String,
+        required: true
+       },
+       number: {
+        type: Number,
+        required: true
+       }
+    }]
+});
+var cartModel = mongoose.model('cart', cartSchema);
+
 var app = express();
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/public'));
 
 app.post("/register", function callback(req, res){
     var userInfo = req.body;
@@ -80,7 +97,7 @@ app.post("/register", function callback(req, res){
     })
 });
 
-app.post("/addProduct", function callback(req, res){
+app.post("/register-product", function callback(req, res){
     var productInfo = req.body;
     var newProduct = new productModel(productInfo);
     var error = newProduct.validateSync();
@@ -92,7 +109,7 @@ app.post("/addProduct", function callback(req, res){
             return res.status(400).send({message: error.message})
         }
         if (docs.length) {
-            return res.status(400).send({message: "Username already exists"});
+            return res.status(400).send({message: "Product already exists"});
         } else {
             newProduct.save(function(error){
                 if (error) {
@@ -141,4 +158,64 @@ app.get("/profile/:userId", function (req, res){
     })
 })
 
-app.listen(3000);
+app.get("/product/:productId", function (req, res){
+    var productId = req.params.productId
+    productModel.findOne({_id: productId}, function (error, product){
+        if (error) {
+            return res.status(400).send({message: error.message})
+        }
+        return res.send({product: product})
+    })
+})
+
+app.post("/product/:productId", function (req, res){
+    var productId = req.params.productId
+    var userId = req.body.userid;
+    cartModel.findOne({userid: userId}, function (error, cart){
+        if (error) {
+            return res.status(400).send({message: error.message})
+        }
+        if (cart) {
+            //TODO: find cartProduct with productId
+            console.log(cart.products)
+        } else {
+            var newCart = new cartModel({userid: userId, products: [{productid: productId, number: 1}]});
+            var error = newCart.validateSync();
+            if (error) {
+                return res.status(400).send({message: error.message})
+            }
+            newCart.save(function(error){
+                if (error) {
+                    return res.status(400).send({message: error.message})
+                } else {
+                    return res.send({message: "New cart wrote to db"});
+                }
+            });
+        }
+        // return res.send({product: product})
+    })
+
+    // var productInfo = req.body;
+    // var newProduct = new productModel(productInfo);
+    // var error = newProduct.validateSync();
+    // if (error) {
+    //     return res.status(400).send({message: error.message})
+    // }
+    // productModel.find({name: productInfo.name}, function (error, docs){
+    //     if (error) {
+    //         return res.status(400).send({message: error.message})
+    //     }
+    //     if (docs.length) {
+    //         return res.status(400).send({message: "Product already exists"});
+    //     } else {
+    //         newProduct.save(function(error){
+    //             if (error) {
+    //                 return res.status(400).send({message: error.message})
+    //             } else {
+    //                 return res.send({message: "New product wrote to db"});
+    //             }
+    //         })
+    //     }
+    // })
+})
+app.listen(3001);

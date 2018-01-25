@@ -25,3 +25,14 @@ users
 > db.users.find()
 { ... }
 ```
+
+###Clean shutdown Mongod
+```
+ps -ax | grep mongo
+kill [mongo process id] 
+```
+
+###Set up Express server
+```
+nodemon server.js
+```
