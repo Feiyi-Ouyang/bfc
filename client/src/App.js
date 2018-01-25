@@ -9,6 +9,7 @@ import Logout from "./Logout";
 import Cart from "./Cart";
 import RegisterProduct from "./RegisterProduct";
 import Product from "./Product";
+import Checkout from "./Checkout";
 
 class App extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class App extends Component {
           <Route path="/cart" component={Cart}/>
           <Route exact path="/register-product" component={RegisterProduct}/>
           <Route path="/product" component={Product}/>
+          <Route path="/checkout" component={Checkout}/>
       </div>
 
     );

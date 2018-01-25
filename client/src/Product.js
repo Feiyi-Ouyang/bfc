@@ -33,12 +33,14 @@ class Product extends Component {
                 if (products[i].productid === this.state.id) {
                     products[i].number+=1
                     this.cookies.set('products',products, {path:'/'})
+                    console.log("Cookies: products updated")
                     return 
                 }
             }
         } else {
             var newProducts = [{productid: this.state.id, number: 1}]
             this.cookies.set('products',newProducts, {path:'/'})
+            console.log("Cookies: products created")
         }
         event.preventDefault()
     }
@@ -47,7 +49,7 @@ class Product extends Component {
         return (
             <div>
                 <h1>Product #{this.state.id}</h1>
-                {this.cookies.get('userid') ? <Button onClick={this.handleAdd}>Add to cart</Button> : null}
+                <Button onClick={this.handleAdd}>Add to cart</Button>
             </div>
         );
     }

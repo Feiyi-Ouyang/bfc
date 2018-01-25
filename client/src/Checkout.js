@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
 import { Cookies } from 'react-cookie';
 import { Button, Container, Row, Col } from 'reactstrap';
 
-class Cart extends Component {
+class Checkout extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            products: '',
-            fireRedirect: false,
-        }
         this.cookies = new Cookies()
-        this.handleCheckout = this.handleCheckout.bind(this)
+        this.handlePlaceOrder = this.handlePlaceOrder.bind(this)
     }
 
-    handleCheckout(event) {
-       this.setState({fireRedirect: true})
+    handlePlaceOrder(event) {
        event.preventDefault()
     }
 
@@ -24,11 +18,8 @@ class Cart extends Component {
         return (
             <div>
                 <ProductContainer products={this.cookies.get('products')} /> 
-                <Button onClick={this.handleCheckout}>Checkout</Button>
-                {/*TODO: login status difference  */}
-                {(this.cookies.get('userid') && this.props.location.pathname==='/cart')? <Redirect to={'/cart/'+this.cookies.get('userid')}/> : null}
-                {this.state.fireRedirect ? <Redirect to={'/checkout'}/> : null}
-            </div>
+                <Button onClick={this.handlePlaceOrder}>Place order</Button>
+           </div>
         );
     }
 }
@@ -52,5 +43,4 @@ function ProductRow(props) {
         </Row>
     )
 }
-
-export default Cart;
+export default Checkout;
