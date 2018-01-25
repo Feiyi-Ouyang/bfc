@@ -33,7 +33,7 @@ class App extends Component {
           <Route exact path="/login" render={() => <Login cookies={this.cookies}/>}/>
           <Route path="/profile" component={Profile}/>
           <Route exact path="/logout" render={() => <Logout cookies={this.cookies}/>}/>
-          <Route exact path="/cart" component={Cart}/>
+          <Route path="/cart" component={Cart}/>
           <Route exact path="/register-product" component={RegisterProduct}/>
           <Route path="/product" component={Product}/>
       </div>

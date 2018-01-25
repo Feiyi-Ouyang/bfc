@@ -27,16 +27,19 @@ class Product extends Component {
     }
 
     handleAdd(event) {
-        fetch(this.props.location.pathname, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({'userid':this.cookies.get("userid")})
-        })
-        .then((res) => res.json())
-        .then((responseJson) => {console.log(responseJson.message)})
+        var products = this.cookies.get('products')
+        if (products) {
+            for (var i=0; i<products.length; ++i) {
+                if (products[i].productid === this.state.id) {
+                    products[i].number+=1
+                    this.cookies.set('products',products, {path:'/'})
+                    return 
+                }
+            }
+        } else {
+            var newProducts = [{productid: this.state.id, number: 1}]
+            this.cookies.set('products',newProducts, {path:'/'})
+        }
         event.preventDefault()
     }
 

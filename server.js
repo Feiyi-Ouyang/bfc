@@ -6,6 +6,7 @@ mongoose.connect('mongodb://localhost:27017/bfc', {
     useMongoClient: true,
 });
 mongoose.Promise = global.Promise;
+
 var userSchema = mongoose.Schema({
     username: {
         type: String,
@@ -38,23 +39,23 @@ var productSchema = mongoose.Schema({
 });
 var productModel = mongoose.model('product', productSchema);
 
-var cartSchema = mongoose.Schema({
-    userid: {
-        type: String,
-        required: true
-    },
-    products: [{
-       productid: {
-        type: String,
-        required: true
-       },
-       number: {
-        type: Number,
-        required: true
-       }
-    }]
-});
-var cartModel = mongoose.model('cart', cartSchema);
+// var cartSchema = mongoose.Schema({
+//     userid: {
+//         type: String,
+//         required: true
+//     },
+//     products: [{
+//        productid: {
+//         type: String,
+//         required: true
+//        },
+//        number: {
+//         type: Number,
+//         required: true
+//        }
+//     }]
+// },{usePushEach: true});
+// var cartModel = mongoose.model('cart', cartSchema);
 
 var app = express();
 app.use(bodyParser.json());
@@ -168,54 +169,14 @@ app.get("/product/:productId", function (req, res){
     })
 })
 
-app.post("/product/:productId", function (req, res){
-    var productId = req.params.productId
-    var userId = req.body.userid;
+app.get("/cart/:userId", function (req, res){
+    var userId = req.params.userId
     cartModel.findOne({userid: userId}, function (error, cart){
         if (error) {
             return res.status(400).send({message: error.message})
         }
-        if (cart) {
-            //TODO: find cartProduct with productId
-            console.log(cart.products)
-        } else {
-            var newCart = new cartModel({userid: userId, products: [{productid: productId, number: 1}]});
-            var error = newCart.validateSync();
-            if (error) {
-                return res.status(400).send({message: error.message})
-            }
-            newCart.save(function(error){
-                if (error) {
-                    return res.status(400).send({message: error.message})
-                } else {
-                    return res.send({message: "New cart wrote to db"});
-                }
-            });
-        }
-        // return res.send({product: product})
+        return res.send({products: cart.products});
     })
-
-    // var productInfo = req.body;
-    // var newProduct = new productModel(productInfo);
-    // var error = newProduct.validateSync();
-    // if (error) {
-    //     return res.status(400).send({message: error.message})
-    // }
-    // productModel.find({name: productInfo.name}, function (error, docs){
-    //     if (error) {
-    //         return res.status(400).send({message: error.message})
-    //     }
-    //     if (docs.length) {
-    //         return res.status(400).send({message: "Product already exists"});
-    //     } else {
-    //         newProduct.save(function(error){
-    //             if (error) {
-    //                 return res.status(400).send({message: error.message})
-    //             } else {
-    //                 return res.send({message: "New product wrote to db"});
-    //             }
-    //         })
-    //     }
-    // })
 })
+
 app.listen(3001);
