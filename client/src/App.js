@@ -10,6 +10,7 @@ import Cart from "./Cart";
 import RegisterProduct from "./RegisterProduct";
 import Product from "./Product";
 import Checkout from "./Checkout";
+import Cart2 from "./Cart2";
 
 class App extends Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class App extends Component {
           <Route exact path="/register-product" component={RegisterProduct}/>
           <Route path="/product" component={Product}/>
           <Route path="/checkout" component={Checkout}/>
+          <Route path="/cart2" component={Cart2}/>
       </div>
 
     );

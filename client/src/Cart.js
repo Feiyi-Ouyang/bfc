@@ -23,6 +23,7 @@ class Cart extends Component {
     render() {
         return (
             <div>
+                {/* TODO: use redux state management instead of cookies */}
                 <ProductContainer products={this.cookies.get('products')} /> 
                 <Button onClick={this.handleCheckout}>Checkout</Button>
                 {/*TODO: login status difference  */}
