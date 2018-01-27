@@ -23,12 +23,11 @@ class Cart extends Component {
     render() {
         return (
             <div>
-                {/* TODO: use redux state management instead of cookies */}
                 <ProductContainer products={this.cookies.get('products')} /> 
                 <Button onClick={this.handleCheckout}>Checkout</Button>
                 {/*TODO: login status difference  */}
                 {(this.cookies.get('userid') && this.props.location.pathname==='/cart')? <Redirect to={'/cart/'+this.cookies.get('userid')}/> : null}
-                {this.state.fireRedirect ? <Redirect to={'/checkout'}/> : null}
+                {this.state.fireRedirect ? <Redirect to={'/checkout'+this.cookies.get('userid')}/> : null}
             </div>
         );
     }
