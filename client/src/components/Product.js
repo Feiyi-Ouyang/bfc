@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Product = ({ onClick, id }) => (
+const Product = ({ onClick, product }) => (
   <li onClick={onClick}>
-    {id}
+    {product.id} : {product.number}
   </li>
 )
 

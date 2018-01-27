@@ -2,18 +2,17 @@ import { connect } from 'react-redux'
 import Home from '../components/Home'
 import {addProduct} from '../actions'
 
-
 const mapDispatchToProps = dispatch => {
     return {
-      onProductClick: () => {
-        dispatch(addProduct(1))
+      onProductClick: (id) => {
+        dispatch(addProduct(id))
       }
     }
   }
 
 const ConnectedHome = connect(
     null,
-  mapDispatchToProps,
+    mapDispatchToProps,
 )(Home)
 
 export default ConnectedHome

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
 import { Cookies } from 'react-cookie';
-// import Home from "./Home";
 import ConnectedHome from "./containers/ConnectedHome";
 import Register from "./Register";
 import Login from "./Login";
@@ -31,7 +30,6 @@ class App extends Component {
           <li><Link to="/cart">Cart</Link></li>
           <li><Link to="/register-product">Register product</Link></li>
         </ul>
-          {/* <Route exact path="/home" component={Home}/> */}
           <Route exact path="/home" component={ConnectedHome}/>
           <Route exact path="/register" component={Register}/>
           <Route exact path="/login" render={() => <Login cookies={this.cookies}/>}/>
