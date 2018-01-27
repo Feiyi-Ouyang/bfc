@@ -4,7 +4,7 @@ import ConnectedProductList from './containers/ConnectedProductList'
 
 const Cart2 = () => (
   <div>
-    <ConnectedHome />
+    {/* <ConnectedHome /> */}
     <ConnectedProductList />
   </div>
 )
