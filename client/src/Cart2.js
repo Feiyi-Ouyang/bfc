@@ -1,10 +1,10 @@
 import React from 'react'
-import AddProduct from './containers/AddProduct'
+import ConnectedHome from './containers/ConnectedHome'
 import ConnectedProductList from './containers/ConnectedProductList'
 
 const Cart2 = () => (
   <div>
-    <AddProduct />
+    <ConnectedHome />
     <ConnectedProductList />
   </div>
 )
