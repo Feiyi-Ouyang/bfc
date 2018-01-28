@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
 import { Cookies } from 'react-cookie';
 import ConnectedHome from "./containers/ConnectedHome";
+import ConnectedLogout from "./containers/ConnectedLogout";
 import Register from "./Register";
 import Login from "./Login";
 import Profile from "./Profile";
 import Logout from "./Logout";
-import Cart from "./Cart";
 import RegisterProduct from "./RegisterProduct";
 import Product from "./Product";
 import Checkout from "./Checkout";
-import Cart2 from "./Cart2";
+import Cart from "./Cart";
 
 class App extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ class App extends Component {
           <Route exact path="/register-product" component={RegisterProduct}/>
           <Route path="/product" component={Product}/>
           <Route path="/checkout" component={Checkout}/>
-          <Route path="/cart2" component={Cart2}/>
+          <Route path="/logout2" component={ConnectedLogout}/>
       </div>
 
     );
