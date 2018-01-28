@@ -13,6 +13,19 @@ class Logout extends Component {
 
     componentDidMount(){
         this.timer = setTimeout(() => {
+           fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    state: this.props.store.getState(),
+                    userid: this.cookies.get('userid')
+                })
+            })
+            // .then((res) => res.json())
+            // .then((responseJson) => {console.log(responseJson.message)})
             this.cookies.set('username', '', {path:'/'})
             this.cookies.set('userid', '', {path: '/'})
             this.setState({fireRedirect: true})

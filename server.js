@@ -39,23 +39,23 @@ var productSchema = mongoose.Schema({
 });
 var productModel = mongoose.model('product', productSchema);
 
-// var cartSchema = mongoose.Schema({
-//     userid: {
-//         type: String,
-//         required: true
-//     },
-//     products: [{
-//        productid: {
-//         type: String,
-//         required: true
-//        },
-//        number: {
-//         type: Number,
-//         required: true
-//        }
-//     }]
-// },{usePushEach: true});
-// var cartModel = mongoose.model('cart', cartSchema);
+var cartSchema = mongoose.Schema({
+    userid: {
+        type: String,
+        required: true
+    },
+    products: [{
+       id: {
+        type: String,
+        required: true
+       },
+       number: {
+        type: Number,
+        required: true
+       }
+    }]
+},{usePushEach: true});
+var cartModel = mongoose.model('cart', cartSchema);
 
 var app = express();
 app.use(bodyParser.json());
@@ -139,6 +139,27 @@ app.post("/login", function callback(req, res){
         }
     })
 })
+
+app.post("/logout", function callback(req, res){
+    var products = req.body.state.products;
+    var userid = req.body.userid;
+    var cartInfo = {userid: userid, products: products}
+    var newCart = new cartModel(cartInfo);
+    cartModel.update({ userid: userid }, { $set: { products: products }}, function(error, docs){
+        console.log(error)
+        console.log(docs)
+        if (docs.nModified===0) {
+            newCart.save(function(error){
+                if (error) {
+                    return res.status(400).send({message: error.message})
+                } else {
+                    return res.send({message: "Cart saved"});
+                }
+            })
+        }
+    });
+})
+
 
 app.get("/home", function (req, res){
     productModel.find({}, function (error, products){

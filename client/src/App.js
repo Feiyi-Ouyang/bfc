@@ -6,7 +6,6 @@ import ConnectedLogout from "./containers/ConnectedLogout";
 import Register from "./Register";
 import Login from "./Login";
 import Profile from "./Profile";
-import Logout from "./Logout";
 import RegisterProduct from "./RegisterProduct";
 import Product from "./Product";
 import Checkout from "./Checkout";
@@ -34,12 +33,12 @@ class App extends Component {
           <Route exact path="/register" component={Register}/>
           <Route exact path="/login" render={() => <Login cookies={this.cookies}/>}/>
           <Route path="/profile" component={Profile}/>
-          <Route exact path="/logout" render={() => <Logout cookies={this.cookies}/>}/>
           <Route path="/cart" component={Cart}/>
           <Route exact path="/register-product" component={RegisterProduct}/>
           <Route path="/product" component={Product}/>
           <Route path="/checkout" component={Checkout}/>
-          <Route path="/logout2" component={ConnectedLogout}/>
+          {/* <Route path="/logout" component={ConnectedLogout}/> */}
+          <Route path="/logout" render={() => <ConnectedLogout store={this.props.store}/>}/>
       </div>
 
     );

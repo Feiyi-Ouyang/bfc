@@ -14,11 +14,13 @@ const enhancer = compose(
     persistState(),
 )
 
+const store = createStore(bfcApp, enhancer)
+
 ReactDOM.render((
-    <Provider store={createStore(bfcApp, enhancer)}>
+    <Provider store={store}>
         <CookiesProvider>
             <BrowserRouter>
-                <App />
+                <App store={store}/>
             </BrowserRouter>
         </CookiesProvider>
     </Provider>
