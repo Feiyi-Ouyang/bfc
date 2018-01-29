@@ -29,6 +29,7 @@ class Home extends Component {
       <ul>
         {this.state.products.map((product, index) => (
           <li key={index}>
+            <img src={"/productImg/"+product.img} alt=""/>
             {product._id}
             <button onClick={() => this.props.onProductClick(product._id)}>Add to cart</button >
           </li>

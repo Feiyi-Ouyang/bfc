@@ -1,6 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var multer = require('multer');
+var upload = multer({ dest: 'client/public/productImg/' })
 
 mongoose.connect('mongodb://localhost:27017/bfc', {
     useMongoClient: true,
@@ -36,6 +38,10 @@ var productSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    img: {
+        type: String,
+        required: true
+    },
 });
 var productModel = mongoose.model('product', productSchema);
 
@@ -59,6 +65,7 @@ var cartModel = mongoose.model('cart', cartSchema);
 
 var app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/register", function callback(req, res){
     var userInfo = req.body;
@@ -98,8 +105,8 @@ app.post("/register", function callback(req, res){
     })
 });
 
-app.post("/register-product", function callback(req, res){
-    var productInfo = req.body;
+app.post("/register-product", upload.single('file'), function callback(req, res){
+    var productInfo = {name: req.body.name, price: req.body.price, img: req.file.filename};
     var newProduct = new productModel(productInfo);
     var error = newProduct.validateSync();
     if (error) {

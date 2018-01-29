@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
 
+// TODO: load cart info and merge into redux state
 class Login extends Component {
     constructor(props) {
         super(props)

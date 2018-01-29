@@ -7,9 +7,17 @@ class RegisterProduct extends Component {
         this.state = {
             name: '',
             price: '',
+            file: ''
         }
+        this.onUploadFile = this.onUploadFile.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    onUploadFile(files) {
+        this.setState({
+            file : files[0]
+        })
     }
 
     handleChange(event) {
@@ -19,17 +27,18 @@ class RegisterProduct extends Component {
     }
 
     handleSubmit(event) {
+        var formData = new FormData();
+        formData.append('name', this.state.name);
+        formData.append('price', this.state.price);
+        formData.append('file', this.state.file);
+
         fetch('/register-product', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.state)
+            method: 'post',
+            body: formData,
         })
         .then((res) => res.json())
-        .then((responseJson) => {console.log(responseJson.message)})
-        event.preventDefault()
+        .then((responsejson) => {console.log(responsejson.message)})
+        // event.preventDefault()
     }
 
     render() {
@@ -37,11 +46,15 @@ class RegisterProduct extends Component {
             <Form onSubmit={this.handleSubmit}> 
                 <FormGroup>
                     <Label>Name</Label>
-                    <Input type="text" name="name" placeholder="Name" value={this.state.username} onChange={this.handleChange}/>
+                    <Input type="text" name="name" placeholder="Name" value={this.state.name} onChange={this.handleChange}/>
                 </FormGroup>
                 <FormGroup>
                     <Label>Price</Label>
-                    <Input type="number" name="price" placeholder="Price" value={this.state.email} onChange={this.handleChange}/>
+                    <Input type="number" name="price" placeholder="Price" value={this.state.price} onChange={this.handleChange}/>
+                </FormGroup>
+                <FormGroup>
+                    <Label>File</Label>
+                    <Input type="file" onChange={(e)=>this.onUploadFile(e.target.files)}/>
                 </FormGroup>
                 <Button>Register</Button>
             </Form>
