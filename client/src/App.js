@@ -1,31 +1,23 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
-import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import './App.css';
-// import Login from "./user/login";
+import { Link, Route, Redirect } from 'react-router-dom';
+import Home from "./Home";
+import Login from "./Login";
 
+// App is only responsible for routing
 class App extends Component {
+    componentDidMount() {
+        console.log("App start rendering");
+    }
+
     render() {
         return (
             <div>
-                <div class="header-env fixed-top">
-                    <div class="left-icon">
-                        <span class="glyphicon glyphicon-th-list"></span>
-                    </div>
-
-                    <div class="brand-name">BFC</div>
-
-                    <div class="right-icon">
-                        <Link to="/login">
-                            <span class="glyphicon glyphicon-user"></span>
-                        </Link>
-                    </div>
-                    <div class="right-icon">
-                        <span class="glyphicon glyphicon-shopping-cart"></span>
-                    </div>
-                    {/* <Route exact path="/login" render={() => <Login/>}/> */}
-
-                </div>
+                {/*Redirect to /home if at the main page*/}
+                {window.location.href==="http://localhost:3000/" ? <Redirect to="/home" /> : null}
+                <Link to="/home"></Link>
+                <Link to="/login"></Link>
+                <Route exact path="/home" component={Home} />
+                <Route exact path="/login" component={Login} />
             </div>
         );
     }
