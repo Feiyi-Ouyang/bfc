@@ -1,3 +1,3 @@
-## Heroku
+## React-Express-Heroku-Mlab template
 
-+ Deployed on [Heroku](https://afternoon-temple-54496.herokuapp.com)
+Users can directly start from editing client/src to produce React app with an Express server on Heroku
