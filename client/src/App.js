@@ -1,21 +1,34 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Link, Route } from 'react-router-dom';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import './App.css';
+// import Login from "./user/login";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <div class="header-env fixed-top">
+                    <div class="left-icon">
+                        <span class="glyphicon glyphicon-th-list"></span>
+                    </div>
+
+                    <div class="brand-name">BFC</div>
+
+                    <div class="right-icon">
+                        <Link to="/login">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </Link>
+                    </div>
+                    <div class="right-icon">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                    </div>
+                    {/* <Route exact path="/login" render={() => <Login/>}/> */}
+
+                </div>
+            </div>
+        );
+    }
 }
 
 export default App;

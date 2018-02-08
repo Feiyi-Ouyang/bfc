@@ -1,27 +1,43 @@
-.App {
-  text-align: center;
+@import url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css');
+
+.header-env {
+  background-color: gray;
+  padding-top: 1rem;
+  height: 4rem;
+  color: black;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.brand-name {
+  font-size: 1.5rem;
+  display: inline;
+  position: relative;
+  left: 50%;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+
+.left-icon {
+  display: inline;
+  position: relative;
+  left: 2%;
 }
 
-.App-title {
-  font-size: 1.5em;
+
+.right-icon {
+  display: inline;
+  position: relative;
+  left: 80%;
+  padding-left: 2%;
 }
 
-.App-intro {
-  font-size: large;
+.product-container {
+  height: 1200px;
+  background-color: black;
 }
 
+.App-footer {
+  height: 1200px;
+  background-color: red;
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
