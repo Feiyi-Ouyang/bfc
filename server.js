@@ -12,7 +12,7 @@ app.listen(process.env.PORT || 8080, function() {
 const mongoClient = mongodb.MongoClient;
 
 // MONGODB_URI
-const uri = process.env.MONGOLAB_URI;
+const uri = process.env.MONGODB_URI;
 
 mongoClient.connect(uri, function(err, db) {
     if (err) {
