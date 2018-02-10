@@ -38,31 +38,53 @@ var userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    password1: {
+    password: {
         type: String,
         required: true
     },
-    password2: {
+    password_v: {
         type: String,
         required: true
     },
 });
 // Compile model from schema
 var userModel = mongoose.model('user', userSchema);
-server.post("/login", function (req, res) {
-    console.log("server receive GET request from /login");
+
+// Contract: only send {message: <errMsg>} once
+server.post("/register", function (req, res) {
+    console.log("server receive POST request from /register");
+
     var userInfo = req.body;
     console.log("userInfo ", userInfo);
+
     // Create an instance of model SomeModel
-    // var awesome_instance = new userModel(userInfo);
-    var awesome_instance = new userModel({username: 'a', email: 'a@a', password1: 'a', password2: 'b'});
-    // Save the new model instance, passing a callback
-    awesome_instance.save(function (err) {
-        if (err) return handleError(err);
-        console.log("saved!");
-    });
-   res.send({
-        message: "getting back from server",
-    });
-    console.log("sent message to client")
+    var user_instance = new userModel(userInfo);
+
+    // Validate data conforms with Schema
+    var err = user_instance.validateSync();
+    if (err) {
+        res.status(400).send({message: err.message})
+    }
+
+    // Validate replicated userInfo, query with email
+    userModel.find({username: userInfo.username}, function (err, result){
+        if (err) {
+            res.status(400).send({message: err.message})
+        } else {
+            if (result.length) {
+                res.status(400).send({message: "username already exists"});
+            } else {
+
+                // Save the new model instance 
+                user_instance.save(function (err) {
+                    if (err) {
+                        res.status(400).send({message: err.message})
+                    } else {
+                        res.send({message: "userInfo saved in db"});
+                    }
+                });
+            }
+        }
+    })
+
 })

@@ -1,3 +1,7 @@
-## React-Express-Heroku-Mlab template
+## Local development
 
-Users can directly start from editing client/src to produce React app with an Express server on Heroku
+``` 
+heroku local web
+cd client 
+yarn start
+```

@@ -4,22 +4,26 @@ class Register extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            username: '',
-            email: '',
-            password1: '',
-            password2: '',
-        }
+            user: {
+                username: '',
+                email: '',
+                password: '',
+                password_v: '',
+            }
+       }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleChange(event) {
+        console.log(event.target)
         this.setState({
             [event.target.name]: event.target.value
         })
     }
 
     handleSubmit(event) {
+        console.log("register: sending info to server\n %s", JSON.stringify(this.state.user));
         fetch('/register', {
             method: 'POST',
             headers: {
@@ -28,9 +32,15 @@ class Register extends Component {
             },
             body: JSON.stringify(this.state)
         })
-        //     .catch(error => console.error('Error:', error))
-        //     .then((res) => res.json())
-        //     .then((responseJson) => { console.log(responseJson.message) })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.ok) {
+                    console.log(res.message)
+                } else {
+                    throw new Error(res.message);
+                }
+            })
+            .catch(error => console.error('fetch operation problem:', error.message))
         event.preventDefault()
     }
 
@@ -39,22 +49,22 @@ class Register extends Component {
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Username: <br />
-                        <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.handleChange} />
+                    <input type="text" name="user.username" placeholder="Username" value={this.state.user.username} onChange={this.handleChange} />
                 </label>
                 <br />
                 <label>
                     Email: <br />
-                    <input type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} />
+                    <input type="email" name="user.email" placeholder="Email" value={this.state.user.email} onChange={this.handleChange} />
                 </label>
                 <br />
                 <label>
                     Password: <br />
-                    <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
+                    <input type="password" name="user.password" placeholder="Password" value={this.state.user.password} onChange={this.handleChange} />
                 </label>
                 <br />
                 <label>
                     Verify Password: <br />
-                    <input type="password" name="password2" placeholder="Password" value={this.state.password2} onChange={this.handleChange} />
+                    <input type="password" name="user.password_v" placeholder="Password" value={this.state.user.password_v} onChange={this.handleChange} />
                 </label>
                 <br />
                 <button type="submit">Register</button>
