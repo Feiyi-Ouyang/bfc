@@ -1,0 +1,44 @@
+@import url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css');
+
+.header-env {
+  background-color: gray;
+  padding-top: 1rem;
+  height: 4rem;
+  color: black;
+}
+
+.brand-name {
+  font-size: 1.5rem;
+  display: inline;
+  position: relative;
+  left: 50%;
+}
+
+
+.left-icon {
+  display: inline;
+  position: relative;
+  left: 2%;
+}
+
+
+.right-icon {
+  display: inline;
+  position: relative;
+  left: 80%;
+  padding-left: 2%;
+}
+
+.product-container {
+  height: 1200px;
+  background-color: black;
+}
+
+.App-footer {
+  height: 1200px;
+  background-color: red;
+}
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

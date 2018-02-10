@@ -1,0 +1,22 @@
+{
+    "name": "bfc",
+    "version": "1.0.0",
+    "description": "a full-stack web app",
+    "main": "start.js",
+    "author": "feiyiOuyang",
+    "license": "MIT",
+    "dependencies": {
+        "body-parser": "^1.18.2",
+        "express": "^4.16.2",
+        "mongodb": "^3.0.2",
+        "mongoose": "^5.0.4"
+    },
+    "scripts": {
+        "start": "node server.js",
+        "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
+        "heroku-postbuild": "cd client && yarn --production=false && yarn run build"
+    },
+    "engines": {
+        "node": "8.9.3"
+    }
+}
