@@ -9,9 +9,7 @@ This app is deployed on [Heroku](https://afternoon-temple-54496.herokuapp.com/ho
 - [x] Register page: regiter users and save users in MongoDB (mLab)
 - [x] Register page: redirect to Login page if registeration succeed
 - [x] Admin page: register products and save products in db
-- [x] Home page: show products registered in db
-- [ ] Product page: show product details
-- [ ] Product page: link to add product to cart
-- [ ] Cart page: show products added to cart
+- [x] Home page: show all the products registered in db, with "add to cart" link
+- [x] Cart page: dynamically show products added to cart
 - [x] Profile page: link to Cart page
 

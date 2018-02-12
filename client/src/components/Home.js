@@ -42,7 +42,9 @@ class Home extends Component {
                         </a>
                     </div>
                     <div className="right-icon">
+                        <a href="/cart">
                         <span className="glyphicon glyphicon-shopping-cart"></span>
+                        </a>
                     </div>
 
                 </div>
@@ -52,9 +54,9 @@ class Home extends Component {
                             <img src={"/productImg/" + product.img} alt="" />
                             <br/>
                             Product name: {product.name}
-                            {/* <button onClick={() => this.props.onProductClick(product._id)}>Add to cart</button > */}
+                            <br/>
+                            <button onClick={() => this.props.onProductClick(product._id)}>Add to cart</button >
                         </li>
-
                     ))}
                 </ul>
 
