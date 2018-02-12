@@ -19,5 +19,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Heroku env
 .env
-log.md 

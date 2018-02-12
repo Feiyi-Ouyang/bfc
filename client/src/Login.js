@@ -6,43 +6,58 @@ class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            email: '',
-            password: '',
-            fireRedirect: false,
-            userid: '',
+            user: {
+                email: '',
+                password: '',
+            },
+            registerResponse: '',
+            redirectToAdmin: false,
+            redirectToProfile: false,
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount() {
-        console.log("login mounted");
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
+        this.setState({ user: { ...this.state.user, [event.target.name]: event.target.value } });
     }
 
     handleSubmit(event) {
         event.preventDefault()
-        console.log("sending info to server\n %s", JSON.stringify(this.state));
         fetch('/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(this.state)
+            body: JSON.stringify(this.state.user)
         })
-            .catch(error => console.error('Error:', error))
-            .then((res) => res.json())
-            .then((responseJson) => {
-                console.log(responseJson.message)
-                //     this.props.cookies.set('username', responsejson.user.username, {path:'/'})
-                //     this.props.cookies.set('userid', responsejson.user._id, {path: '/'})
-                //     this.setstate({fireredirect: true, userid: responsejson.user._id})
+            .then((res) => {
+                res.json().then((value) => {
+                    // returns if component unmounted before promise resolved
+                    if (!this._isMounted) {
+                        return;
+                    }
+                    this.setState({ registerResponse: value.message });
+                    if (res.ok) {
+                        if (value.user.username === 'admin') {
+                            this.setState({ redirectToAdmin: true })
+                        } else {
+                            this.setState({ redirectToProfile: true })
+                        }
+                    }
+                    //     this.props.cookies.set('username', responsejson.user.username, {path:'/'})
+                    //     this.props.cookies.set('userid', responsejson.user._id, {path: '/'})
+                    //     this.setstate({fireredirect: true, userid: responsejson.user._id})
+                });
             })
     }
 
@@ -63,9 +78,13 @@ class Login extends Component {
                     <br />
                     <button type="submit">Login</button>
                 </form>
-                New user? <br/>
+                New user? <br />
                 <a href="/register"><button>Register</button></a>
-                {this.state.fireRedirect ? <Redirect to={'/profile/' + this.state.userid} /> : null}
+                {/* show register response */}
+                {this.state.registerResponse}
+                {/* redirect */}
+                {this.state.redirectToAdmin ? <Redirect to='/admin' /> : null}
+                {this.state.redirectToProfile ? <Redirect to='/profile' /> : null}
             </div>
         );
     }
