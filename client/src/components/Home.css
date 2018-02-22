@@ -42,3 +42,14 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.product-group {
+  display: flex;
+  list-style-type: none;
+}
+
+.product-img {
+  width: 40%;
+  height: 40%;
+  filter: drop-shadow(0 0 0.75rem rgb(128, 128, 128));
+}

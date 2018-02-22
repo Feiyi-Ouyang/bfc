@@ -9,8 +9,8 @@ export const RM_ALL_PRODUCT = 'RM_ALL_PRODUCT'
  * action creators
  */
 
-export function addProduct(id) {
-  return { type: ADD_PRODUCT, id }
+export function addProduct(name) {
+  return { type: ADD_PRODUCT, name }
 }
 
 export function rmProduct(id) {

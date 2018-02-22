@@ -48,14 +48,14 @@ class Home extends Component {
                     </div>
 
                 </div>
-                <ul>
+                <ul className="product-group">
                     {this.state.products.map((product, index) => (
-                        <li key={index}>
-                            <img src={"/productImg/" + product.img} alt="" />
+                        <li key={index} className="product-item">
+                            <img src={"/productImg/" + product.img} alt="" className="product-img" />
                             <br/>
-                            Product name: {product.name}
+                            {product.name} : {product.price}
                             <br/>
-                            <button onClick={() => this.props.onProductClick(product._id)}>Add to cart</button >
+                            <button onClick={() => this.props.onProductClick(product.name)}>Add to cart</button >
                         </li>
                     ))}
                 </ul>
