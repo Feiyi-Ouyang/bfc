@@ -15,3 +15,5 @@ This app is deployed on [Heroku](https://afternoon-spire-73592.herokuapp.com/)
 - [x] Cart page: dynamically tshow products added to cart
 - [x] Profile page: link to Cart page
 
+<!-- start app locally: foreman start (will run node server.js)
+then cd clience, yarn run start -->

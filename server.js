@@ -162,7 +162,6 @@ server.get("/home", function (req, res){
             return res.status(400).send({message: error.message})
         }
         return res.send({products: products})
-        
     })
 })
 
