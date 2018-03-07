@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link, Route, Redirect } from 'react-router-dom';
-import ConnectedHome from "./containers/ConnectedHome";
-import Login from "./Login";
-import Register from "./Register";
-import Profile from "./Profile";
-import Admin from "./Admin";
-import ConnectedCart from "./containers/ConnectedCart";
+import ConnectedHome from "./home/ConnectedHome";
+import Login from "./authentication/Login";
+import Register from "./authentication/Register";
+import Profile from "./user/Profile";
+import Admin from "./admin/Admin";
+import ConnectedCart from "./user/ConnectedCart";
 
 // App is only responsible for routing
 class App extends Component {

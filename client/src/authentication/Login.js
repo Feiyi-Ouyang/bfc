@@ -42,11 +42,7 @@ class Login extends Component {
         })
             .then((res) => {
                 res.json().then((value) => {
-                    // returns if component unmounted before promise resolved
-                    // if (!this._isMounted) {
-                    //     return;
-                    // }
-                    this.setState({ registerResponse: value.message });
+                   this.setState({ registerResponse: value.message });
                     if (res.ok) {
                         if (value.user.username === 'admin') {
                             this.setState({ redirectToAdmin: true })
@@ -54,9 +50,6 @@ class Login extends Component {
                             this.setState({ redirectToProfile: true })
                         }
                     }
-                    //     this.props.cookies.set('username', responsejson.user.username, {path:'/'})
-                    //     this.props.cookies.set('userid', responsejson.user._id, {path: '/'})
-                    //     this.setstate({fireredirect: true, userid: responsejson.user._id})
                 });
             })
     }
