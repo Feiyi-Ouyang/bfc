@@ -30,9 +30,9 @@ class Login extends Component {
         this.setState({ user: { ...this.state.user, [event.target.name]: event.target.value } });
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault()
-        fetch('/login', {
+        await fetch('/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -43,9 +43,9 @@ class Login extends Component {
             .then((res) => {
                 res.json().then((value) => {
                     // returns if component unmounted before promise resolved
-                    if (!this._isMounted) {
-                        return;
-                    }
+                    // if (!this._isMounted) {
+                    //     return;
+                    // }
                     this.setState({ registerResponse: value.message });
                     if (res.ok) {
                         if (value.user.username === 'admin') {
