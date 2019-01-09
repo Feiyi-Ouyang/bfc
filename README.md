@@ -1,6 +1,7 @@
 ## Heroku
 This app is deployed on [Heroku](https://afternoon-spire-73592.herokuapp.com/)
 
+
 ## Functionalities
 
 - [x] Login page: link to Register page
@@ -16,4 +17,4 @@ This app is deployed on [Heroku](https://afternoon-spire-73592.herokuapp.com/)
 - [x] Profile page: link to Cart page
 
 <!-- start app locally: foreman start (will run node server.js)
-then cd clience, yarn run start -->
+then cd client, yarn run start -->
